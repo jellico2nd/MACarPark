@@ -75,5 +75,14 @@ namespace MACarParkModels.DataLayer
         {
             return carParkContext.DailyPricePerMonths.SingleOrDefault(x => x.Month == month).PricePerDay;
         }
+
+        public IReservation UpdateReservation(IReservation reservation)
+        {
+            var currentReservation = carParkContext.Reservations.SingleOrDefault(x=>x.Id == reservation.Id);
+            currentReservation.FromDate = reservation.FromDate;
+            currentReservation.ToDate = reservation.ToDate;
+            carParkContext.SaveChanges();
+            return currentReservation;
+        }
     }
 }

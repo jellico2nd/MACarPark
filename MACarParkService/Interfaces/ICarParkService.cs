@@ -13,6 +13,7 @@ namespace MACarParkService.Interfaces
         ICarPark UpdateCarpark(int id, int availableSpaces);
         IReservation FindReservationById(int id);
         IReservation AddReservation(IReservation reservation);
+        IReservation UpdateReservation(IReservation reservation);
         void CancelReservation(IReservation reservation);
         ICollection<AvailabilityDTO> GetAvailability(IReservation reservation);
         decimal GetParkingPrice(int month);

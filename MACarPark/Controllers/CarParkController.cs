@@ -112,5 +112,22 @@ namespace MACarPark.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+
+        [HttpPut]
+        [Route("amend-reservation")]
+        public ActionResult<IReservation> AmendReservation(Reservation reservation)
+        {
+            try
+            {
+                return CreatedAtAction("AddReservation", carParkService.UpdateReservation(reservation));
+            }
+            catch (Exception e)
+            {
+                //Log Error and Recover 
+                //throw;
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

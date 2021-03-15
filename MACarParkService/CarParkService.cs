@@ -97,11 +97,11 @@ namespace MACarParkService
 
         private string FormatAvailabilityString(ICarPark carPark, int takenReservations)
         {
-            if(takenReservations == 0)
+            if (takenReservations == 0)
             {
                 return "all free spaces";
             }
-            if(carPark.AvailableSpaces - takenReservations == 0)
+            if (carPark.AvailableSpaces - takenReservations == 0)
             {
                 return "no free spaces";
             }
@@ -125,6 +125,20 @@ namespace MACarParkService
         {
             var availability = GetAvailability(reservation);
             return new ReservationWithTotalPriceDTO { CarParkAvailability = availability };
+        }
+
+        public IReservation UpdateReservation(IReservation reservation)
+        {
+            try
+            {
+                GetAvailability(reservation);
+                return carParkRepository.UpdateReservation(reservation);
+            }
+            catch
+            {
+                //log and recover
+                throw;
+            }
         }
     }
 }
