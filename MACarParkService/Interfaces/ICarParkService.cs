@@ -15,5 +15,7 @@ namespace MACarParkService.Interfaces
         IReservation AddReservation(IReservation reservation);
         void CancelReservation(IReservation reservation);
         ICollection<AvailabilityDTO> GetAvailability(IReservation reservation);
+        decimal GetParkingPrice(int month);
+        ReservationWithTotalPriceDTO GetFullPriceForReservation(IReservation reservation);
     }
 }

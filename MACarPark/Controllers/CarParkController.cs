@@ -1,6 +1,7 @@
 ﻿using MACarParkModels.Interfaces;
 using MACarParkModels.Models;
 using MACarParkService;
+using MACarParkService.DTOs;
 using MACarParkService.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,22 @@ namespace MACarPark.Controllers
                 return BadRequest(e.Message);
             }
             
+        }
+
+        [HttpGet]
+        [Route("get-reservation-price")]
+        public ActionResult<ReservationWithTotalPriceDTO> GetReservationPrice(int carParkId, DateTime fromDate, DateTime toDate)
+        {
+            var reservation = new Reservation { CarParkId = carParkId, FromDate = fromDate, ToDate = toDate };
+            try
+            {
+                return Ok(carParkService.GetFullPriceForReservation(reservation));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
         }
 
         [HttpPost]

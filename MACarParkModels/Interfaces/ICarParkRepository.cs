@@ -16,5 +16,6 @@ namespace MACarParkModels.Interfaces
         ICollection<IReservation> GetReservationsForCarPark(ICarPark carPark);
         IReservation FindReservationById(int id);
         void CancelReservation(IReservation reservation);
+        decimal GetDailyPricePerMonth(int month);
     }
 }

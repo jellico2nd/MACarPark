@@ -12,6 +12,7 @@ namespace MACarParkModels.DataLayer
         private readonly CarParkContext carParkContext;
         public CarParkRepository(CarParkContext carParkContext)
         {
+            carParkContext.Database.EnsureCreated();
             this.carParkContext = carParkContext;
         }
 
@@ -68,6 +69,11 @@ namespace MACarParkModels.DataLayer
             dbCarPark.AvailableSpaces = availableSpaces;
             carParkContext.SaveChanges();
             return dbCarPark;
+        }
+
+        public decimal GetDailyPricePerMonth(int month)
+        {
+            return carParkContext.DailyPricePerMonths.SingleOrDefault(x => x.Month == month).PricePerDay;
         }
     }
 }

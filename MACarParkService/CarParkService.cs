@@ -7,6 +7,7 @@ using MACarParkService.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace MACarParkService
 {
@@ -57,13 +58,19 @@ namespace MACarParkService
             {
                 var reservationDay = reservation.FromDate.AddDays(i);
                 var takenReservations = carPark.Reservations.Where(x => x.FromDate <= reservationDay && x.ToDate >= reservationDay);
-                availableSpacesByDate.Add(new AvailabilityDTO() 
-                { 
-                    ReservationDate = reservationDay, 
-                    SpacesAvailability = FormatAvailabilityString(carPark, takenReservations.Count()), 
-                    FreeSpaces = carPark.AvailableSpaces - takenReservations.Count() });
+                availableSpacesByDate.Add(new AvailabilityDTO()
+                {
+                    ReservationDate = reservationDay,
+                    SpacesAvailability = FormatAvailabilityString(carPark, takenReservations.Count()),
+                    FreeSpaces = carPark.AvailableSpaces - takenReservations.Count(),
+                    Price = GetParkingPrice(reservationDay.Month)
+                });
             }
             return availableSpacesByDate;
+        }
+        public decimal GetParkingPrice(int month)
+        {
+            return carParkRepository.GetDailyPricePerMonth(month);
         }
 
         public ICollection<ICarPark> GetCarParks()
@@ -105,13 +112,19 @@ namespace MACarParkService
         {
             if (availability.Any(x => x.FreeSpaces == 0))
             {
-                string message = string.Empty;
+                var message = new StringBuilder();
                 foreach (var item in availability.Where(x => x.FreeSpaces == 0))
                 {
-                    message += $"{item.ReservationDate.ToShortDateString()} - {item.SpacesAvailability}";
+                    message.AppendLine($"{item.ReservationDate.ToShortDateString()} - {item.SpacesAvailability}");
                 }
-                throw new NoFreeSpacesException(message);
+                throw new NoFreeSpacesException(message.ToString());
             }
+        }
+
+        public ReservationWithTotalPriceDTO GetFullPriceForReservation(IReservation reservation)
+        {
+            var availability = GetAvailability(reservation);
+            return new ReservationWithTotalPriceDTO { CarParkAvailability = availability };
         }
     }
 }

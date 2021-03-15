@@ -9,5 +9,6 @@ namespace MACarParkService.DTOs
         public DateTime ReservationDate { get; set; }
         public string SpacesAvailability { get; set; }
         public int FreeSpaces { get; set; }
+        public decimal Price { get; set; }
     }
 }

@@ -7,6 +7,6 @@ namespace MACarParkModels.Interfaces
     public interface IDailyPricePerMonth
     {
         int Month { get; set; }
-        decimal PricePerDat { get; set; }
+        decimal PricePerDay { get; set; }
     }
 }
