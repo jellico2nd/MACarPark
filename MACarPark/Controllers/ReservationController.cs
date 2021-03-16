@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MACarPark.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/reservation")]
     [ApiController]
     public class ReservationController : ControllerBase
     {
@@ -59,6 +59,23 @@ namespace MACarPark.Controllers
             try
             {
                 return CreatedAtAction("AddReservation", reservationService.AddReservation(reservation));
+            }
+            catch (Exception e)
+            {
+                //Log Error and Recover 
+                //throw;
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("cancel-reservation")]
+        public ActionResult CancelReservation(Reservation reservation)
+        {
+            try
+            {
+                reservationService.CancelReservation(reservation);
+                return Ok();
             }
             catch (Exception e)
             {

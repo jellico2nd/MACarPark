@@ -34,7 +34,7 @@ namespace MACarParkModels.DataLayer
 
         public CarParkEntity FindCarParkById(int id)
         {
-            return carParkContext.CarParks.Include(x => x.Reservations).SingleOrDefault(x=>x.Id == id);
+            return carParkContext.CarParks.Include(x => x.Reservations).SingleOrDefault(x=>x.Id == id) ?? new CarParkEntity();
         }
 
         public void RemoveCarPark(int id)

@@ -24,7 +24,7 @@ namespace MACarPark.Controllers
         }
 
         [HttpGet]
-        [Route("get-carparks")]
+        [Route("carparks")]
         public ActionResult<ICollection<ICarPark>> GetCarParks()
         {
             return Ok(carParkService.GetCarParks());

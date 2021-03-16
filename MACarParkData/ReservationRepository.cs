@@ -29,7 +29,7 @@ namespace MACarParkData
 
         public ReservationEntity FindReservationById(int id)
         {
-            return carParkContext.Reservations.Find(id);
+            return carParkContext.Reservations.SingleOrDefault(x => x.Id == id) ?? new ReservationEntity();
         }
 
         public ICollection<ReservationEntity> GetReservationsForCarPark(CarParkEntity carPark)
@@ -40,6 +40,10 @@ namespace MACarParkData
         public ReservationEntity UpdateReservation(ReservationEntity reservation)
         {
             var currentReservation = carParkContext.Reservations.SingleOrDefault(x => x.Id == reservation.Id);
+            if(currentReservation == null)
+            {
+                currentReservation = AddReservation(reservation);
+            }
             currentReservation.FromDate = reservation.FromDate;
             currentReservation.ToDate = reservation.ToDate;
             carParkContext.SaveChanges();
