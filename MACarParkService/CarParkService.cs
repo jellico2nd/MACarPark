@@ -9,12 +9,10 @@ namespace MACarParkService
     public class CarParkService : ICarParkService
     {
         private readonly ICarParkRepository carParkRepository;
-        private readonly IParkingPricesService parkingPricesService;
 
-        public CarParkService(ICarParkRepository carParkRepository, IParkingPricesService parkingPricesService)
+        public CarParkService(ICarParkRepository carParkRepository)
         {
             this.carParkRepository = carParkRepository;
-            this.parkingPricesService = parkingPricesService;
         }
 
         public ICarPark FindCarParkById(int id)
