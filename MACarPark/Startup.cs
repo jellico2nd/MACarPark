@@ -29,6 +29,8 @@ namespace MACarPark
             services.AddDbContext<CarParkContext>(opt => opt.UseInMemoryDatabase("CarParks"));
 
             services.AddScoped<ICarParkRepository, CarParkRepository>();
+            services.AddScoped<IParkingPriceRepository, ParkingPriceRepository>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<ICarParkService, CarParkService>();
             services.AddScoped<IParkingPricesService, ParkingPricesService>();
             services.AddScoped<IReservationService, ReservationService>();
