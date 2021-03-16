@@ -8,12 +8,18 @@ namespace MACarParkModels.Models
 {
     public class Reservation : IReservation
     {
-        [Key]
+        public Reservation()
+        {
+        }
+        public Reservation(int id, int carParkId, DateTime fromDate, DateTime toDate)
+        {
+            Id = id;
+            CarParkId = carParkId;
+            FromDate = fromDate;
+            ToDate = toDate;
+        }
         public int Id { get; set; }
         public int CarParkId { get; set; }
-        [JsonIgnore]
-        [ForeignKey("CarParkId")]
-        public CarPark CarPark { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
     }

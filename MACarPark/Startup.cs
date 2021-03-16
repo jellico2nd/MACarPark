@@ -28,6 +28,8 @@ namespace MACarPark
 
             services.AddScoped<ICarParkRepository, CarParkRepository>();
             services.AddScoped<ICarParkService, CarParkService>();
+            services.AddScoped<IParkingPricesService, ParkingPricesService>();
+            services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<ICarPark, CarPark>();
             services.AddScoped<IReservation, Reservation>();
 

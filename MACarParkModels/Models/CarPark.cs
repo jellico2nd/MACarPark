@@ -7,9 +7,15 @@ namespace MACarParkModels.Models
 {
     public class CarPark : ICarPark
     {
-        [Key]
+        public CarPark()
+        {
+        }
+        public CarPark(int id, int availableSpaces)
+        {
+            Id = id;
+            AvailableSpaces = availableSpaces;
+        }
         public int Id { get; set; }
         public int AvailableSpaces { get; set; } = 0;
-        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

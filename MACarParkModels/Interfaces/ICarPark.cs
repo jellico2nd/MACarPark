@@ -9,6 +9,5 @@ namespace MACarParkModels.Interfaces
     {
         int Id { get; set; }
         int AvailableSpaces { get; set; }
-        ICollection<Reservation> Reservations { get; set; }
     }
 }

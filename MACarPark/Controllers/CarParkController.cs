@@ -30,38 +30,6 @@ namespace MACarPark.Controllers
             return Ok(carParkService.GetCarParks());
         }
 
-        [HttpGet]
-        [Route("get-carpark-availability")]
-        public ActionResult<IReservation> GetCarParkAvailibity(int carParkId, DateTime fromDate, DateTime toDate)
-        {
-            var reservation = new Reservation { CarParkId = carParkId, FromDate = fromDate, ToDate = toDate };
-            try
-            {
-                return Ok(carParkService.GetAvailability(reservation));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-            
-        }
-
-        [HttpGet]
-        [Route("get-reservation-price")]
-        public ActionResult<ReservationWithTotalPriceDTO> GetReservationPrice(int carParkId, DateTime fromDate, DateTime toDate)
-        {
-            var reservation = new Reservation { CarParkId = carParkId, FromDate = fromDate, ToDate = toDate };
-            try
-            {
-                return Ok(carParkService.GetFullPriceForReservation(reservation));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-
-        }
-
         [HttpPost]
         [Route("add-carpark")]
         public ActionResult<ICarPark> AddCarpark(CarPark carPark)
@@ -95,39 +63,6 @@ namespace MACarPark.Controllers
             }
             
 
-        }
-
-        [HttpPost]
-        [Route("add-reservation")]
-        public ActionResult<IReservation> AddReservation(Reservation reservation)
-        {
-            try
-            {
-                return CreatedAtAction("AddReservation", carParkService.AddReservation(reservation));
-            }
-            catch (Exception e)
-            {
-                //Log Error and Recover 
-                //throw;
-                return BadRequest(e.Message);
-            }
-        }
-
-
-        [HttpPut]
-        [Route("amend-reservation")]
-        public ActionResult<IReservation> AmendReservation(Reservation reservation)
-        {
-            try
-            {
-                return CreatedAtAction("AddReservation", carParkService.UpdateReservation(reservation));
-            }
-            catch (Exception e)
-            {
-                //Log Error and Recover 
-                //throw;
-                return BadRequest(e.Message);
-            }
         }
     }
 }
